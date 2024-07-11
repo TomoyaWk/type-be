@@ -1,0 +1,30 @@
+GET http://localhost:3000/
+
+
+#### get todos
+GET http://localhost:3000/todos
+
+### create todos
+POST http://localhost:3000/todos
+Content-Type: application/json
+Accept: application/json
+
+{
+    "title": "testTodo",
+    "content": "testContent"
+}
+
+### get one
+GET http://localhost:3000/todos/4
+
+### update
+PUT  http://localhost:3000/todos/1
+Content-Type: application/json
+Accept: application/json
+
+{
+    "isDone": true
+}
+
+### DELETE
+DELETE http://localhost:3000/todos/5

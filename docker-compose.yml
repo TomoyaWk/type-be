@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=mydb
+      - DATABASE_URL=postgresql://postgres:password@localhost:5432/mydb
+    volumes:
+      - db-data-volume:/var/lib/postgres/data
+    ports:
+      - 5432:5432
+    
+volumes:
+  db-data-volume:
