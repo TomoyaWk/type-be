@@ -42,6 +42,7 @@ describe("TodoAPI", () => {
             const res = await app.request("http://localhost:3000/api/todos/1", {
                 method: "GET",
             })
+            
             expect(res.status).toBe(200)
             const body = await res.json()
             expect(body.id).toBe(1)
