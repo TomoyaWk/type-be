@@ -2,10 +2,10 @@ GET http://localhost:3000/
 
 
 #### get todos
-GET http://localhost:3000/todos
+GET http://localhost:3000/api/todos
 
 ### create todos
-POST http://localhost:3000/todos
+POST http://localhost:3000/api/todos
 Content-Type: application/json
 Accept: application/json
 
@@ -15,10 +15,10 @@ Accept: application/json
 }
 
 ### get one
-GET http://localhost:3000/todos/4
+GET http://localhost:3000/api/todos/4
 
 ### update
-PUT  http://localhost:3000/todos/1
+PUT  http://localhost:3000/api/todos/1
 Content-Type: application/json
 Accept: application/json
 
@@ -27,4 +27,4 @@ Accept: application/json
 }
 
 ### DELETE
-DELETE http://localhost:3000/todos/5
+DELETE http://localhost:3000/api/todos/5

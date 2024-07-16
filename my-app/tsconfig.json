@@ -6,9 +6,10 @@
     "strict": true,
     "skipLibCheck": true,
     "types": [
-      "node"
+      "node","@types/jest", "@quramy/jest-prisma-node"
     ],
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx",
-  }
+  },
+  "include": ["src/**/*", "tests/**/*", "scripts/**/*"]
 }
