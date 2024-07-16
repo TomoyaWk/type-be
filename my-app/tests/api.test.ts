@@ -23,7 +23,7 @@ describe("TodoAPI", () => {
             expect(res.status).toBe(200)
 
             const body = await res.json()
-            // console.log(body)
+    
 
             expect(body.length).toBe(3)
 
@@ -32,6 +32,21 @@ describe("TodoAPI", () => {
                 expect(b.title).toBe(`テスト${i+1}`)
                 expect(b.content).toBe(`コンテンツ${i+1}`)
             }
+        })
+    }),
+    describe("GET １件取得", ()=> {
+        it("正常系", async()=> {
+            const t  = await prisma.task.createMany({
+                data: initTodo
+            })
+            const res = await app.request("http://localhost:3000/api/todos/1", {
+                method: "GET",
+            })
+            expect(res.status).toBe(200)
+            const body = await res.json()
+            expect(body.id).toBe(1)
+            expect(body.title).toBe("テスト1")
+            expect(body.content).toBe("コンテンツ1")
         })
     })
 })
