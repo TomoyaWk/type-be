@@ -39,8 +39,8 @@ api.get("/todos/:id", async(c) => {
   if(task == null){
     return c.status(404)
   }
-  c.status(200)
-  return c.json(task)
+ 
+  return c.json(task, 200)
 }).put("/todos/:id", async(c) => {
   /**
    * Update
