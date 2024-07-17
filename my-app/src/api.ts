@@ -1,9 +1,56 @@
 import { Hono } from "hono";
 import prisma from "./prisma"
+import bcrypt from "bcrypt"
+import type { JwtVariables} from "hono/jwt";
+import { jwt } from 'hono/jwt'
+import { Jwt } from "hono/utils/jwt";
 
-const api = new Hono()
+type Variables = JwtVariables
+
+const api = new Hono<{ Variables: Variables}>()
+
+//Auth
+api.post("/signup", async(c)=> {
+  const req = await c.req.json()
+  const hashed_pass = await bcrypt.hash(req?.password, 10)
+  const user = await prisma.user.create({
+    data:{
+      name: req?.name,
+      email: req?.email,
+      password:hashed_pass,
+    }
+  })
+
+  return c.json(user, 200)
+})
+
+api.post("/login", async(c) => {
+  try{
+    const req = await c.req.json()
+    const user = await prisma.user.findFirst({where: {
+      email: req?.email,
+    }})
+
+    if (!user){ throw new Error }
+    
+    const isPasswordOk = bcrypt.compare(req?.password, user?.password)
+    if (!isPasswordOk){ throw new Error }
+
+    const payload = {
+      id: user.id
+    }
+    //return token
+    const token = await Jwt.sign(payload, "ENV_SECRET_KEY")
+    return c.json({token}, 200)
+
+  } catch {
+
+    return c.text("authenticate failed.", 401)
+  }
+})
 
 
+api.use("/todos/*", jwt({ secret: "ENV_SECRET_KEY" }) )
 // todo CRUD
 api.get("/todos", async(c) => {
     /**
