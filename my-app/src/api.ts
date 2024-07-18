@@ -12,16 +12,17 @@ const api = new Hono<{ Variables: Variables}>()
 //Auth
 api.post("/signup", async(c)=> {
   const req = await c.req.json()
-  const hashed_pass = await bcrypt.hash(req?.password, 10)
+  
+  const hashed = await bcrypt.hash(req?.password, 10)    
   const user = await prisma.user.create({
     data:{
       name: req?.name,
       email: req?.email,
-      password:hashed_pass,
+      password: hashed,
     }
   })
-
-  return c.json(user, 200)
+      
+  return c.json(user, 200)       
 })
 
 api.post("/login", async(c) => {
@@ -30,12 +31,12 @@ api.post("/login", async(c) => {
     const user = await prisma.user.findFirst({where: {
       email: req?.email,
     }})
-
+      
     if (!user){ throw new Error }
     
     const isPasswordOk = bcrypt.compare(req?.password, user?.password)
     if (!isPasswordOk){ throw new Error }
-
+    
     const payload = {
       id: user.id
     }
@@ -84,7 +85,7 @@ api.get("/todos/:id", async(c) => {
   })
   // Not Found
   if(task == null){
-    return c.status(404)
+    return c.text("task not found.",404)
   }
  
   return c.json(task, 200)
