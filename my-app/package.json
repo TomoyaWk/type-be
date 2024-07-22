@@ -1,8 +1,10 @@
 {
   "name": "my-app",
   "scripts": {
+    "build": "npx tsc",
     "dev": "npx tsx watch src/index.ts",
-    "prisma:reset": "prisma migrate reset --force",
+    "prisma:generate": "npx prisma generate",
+    "prisma:reset": "npx prisma migrate reset --force",
     "test": "DATABASE_URL='postgresql://postgres:password@localhost:5432/mydb?schema=test' npx jest --watchAll",
     "test:exec": "DATABASE_URL='postgresql://postgres:password@localhost:5432/mydb?schema=test' npm run prisma:reset && npm run test"
   },
@@ -10,13 +12,13 @@
     "@hono/node-server": "^1.12.0",
     "@prisma/adapter-pg": "^5.16.2",
     "@prisma/client": "^5.16.2",
-    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "hono": "^4.4.12",
     "pg": "^8.12.0"
   },
   "devDependencies": {
     "@quramy/jest-prisma-node": "^1.8.1",
-    "@types/bcrypt": "^5.0.2",
+    "@types/bcryptjs": "^2.4.6",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.11.17",
     "@types/pg": "^8.11.6",
@@ -25,6 +27,7 @@
     "node-fetch": "^2.7.0",
     "prisma": "^5.16.2",
     "tsc": "^2.0.4",
-    "tsx": "^4.7.1"
+    "tsx": "^4.7.1",
+    "typescript": "^5.5.3"
   }
 }

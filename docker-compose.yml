@@ -1,4 +1,16 @@
 services:
+  back:
+    container_name: hono-todo
+    build: 
+      context: ./my-app/
+      dockerfile: "Dockerfile"
+    ports:
+      - "3000:3000"
+    volumes:
+      - type: bind
+        source : "./my-app"
+        target: "/app"
+    command: node /app/dist/src/index.js
   db:
     image: postgres:15-alpine
     environment:

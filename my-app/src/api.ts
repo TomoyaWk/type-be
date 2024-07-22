@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import prisma from "./prisma"
-import bcrypt from "bcrypt"
+import  * as bcrypt  from "bcryptjs"
 import type { JwtVariables} from "hono/jwt";
 import { jwt } from 'hono/jwt'
 import { Jwt } from "hono/utils/jwt";
